@@ -1,47 +1,36 @@
 <?php
 
-/*
- * This file is part of the Omlex library.
- *
- * (c) Michael H. Arieli <excelwebzone@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Omlex;
 
 /**
  * URL scheme class.
- *
- * @author Michael H. Arieli <excelwebzone@gmail.com>
  */
- class URLScheme
- {
-     const WILDCARD_CHARACTER = '*';
+class URLScheme
+{
+    const WILDCARD_CHARACTER = '*';
 
     /**
-     * The scheme
+     * The scheme.
      *
      * @var string
      */
-    protected $scheme = null;
+    protected $scheme;
 
     /**
-     * The generated pattern from the scheme
+     * The generated pattern from the scheme.
      *
      * @var string
      */
-    protected $pattern = null;
+    protected $pattern;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $scheme The URL scheme
      *
      * @throws \InvalidArgumentException If the scheme is empty
      */
-    public function __construct($scheme)
+    public function __construct(string $scheme)
     {
         if (!is_string($scheme)) {
             throw new \InvalidArgumentException('The scheme cannot be empty.');
@@ -51,23 +40,23 @@ namespace Omlex;
     }
 
     /**
-     * Require a sane __toString for all objects
+     * Require a sane __toString for all components.
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->scheme;
     }
 
     /**
-     * Check whether the given URL match the scheme
+     * Check whether the given URL match the scheme.
      *
      * @param string $url The URL to check against
      *
-     * @return Boolean True if match, false if not
+     * @return bool True if match, false if not
      */
-    public function match($url)
+    public function match(string $url): bool
     {
         if (!$this->pattern) {
             $this->pattern = self::buildPatternFromScheme($this);
@@ -77,39 +66,38 @@ namespace Omlex;
     }
 
     /**
-     * Builds pattern from scheme
+     * Builds pattern from scheme.
      *
      * @return string
      */
-    static protected function buildPatternFromScheme(URLScheme $scheme)
+    protected static function buildPatternFromScheme(URLScheme $scheme): string
     {
-		// generate a unique random string
-		$uniq = md5(mt_rand());
+        // generate a unique random string
+        $uniq = md5(mt_rand());
 
-		// replace the wildcard sub-domain if exists
-		$scheme = str_replace(
-			'://'.self::WILDCARD_CHARACTER.'.',
-			'://'.$uniq,
-			$scheme->__tostring()
-		);
+        // replace the wildcard sub-domain if exists
+        $scheme = str_replace(
+            '://'.self::WILDCARD_CHARACTER.'.',
+            '://'.$uniq,
+            $scheme->__toString()
+        );
 
-		// replace the wildcards
-		$scheme = str_replace(
-			self::WILDCARD_CHARACTER,
-			$uniq,
-			$scheme
-		);
+        // replace the wildcards
+        $scheme = str_replace(
+            self::WILDCARD_CHARACTER,
+            $uniq,
+            $scheme
+        );
 
-		// set the pattern wrap
-		$wrap = '|';
+        // set the pattern wrap
+        $wrap = '|';
 
-		// quote the pattern
-		$pattern = preg_quote($scheme, $wrap);
+        // quote the pattern
+        $pattern = preg_quote($scheme, $wrap);
 
-		// replace the unique string by the character class
-		$pattern = str_replace($uniq, '.*', $pattern);
+        // replace the unique string by the character class
+        $pattern = str_replace($uniq, '.*', $pattern);
 
-		return $wrap.$pattern.$wrap.'iu';
+        return $wrap.$pattern.$wrap.'iu';
     }
- }
- 
+}

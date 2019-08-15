@@ -1,20 +1,9 @@
 <?php
 
-/*
- * This file is part of the Omlex library.
- *
- * (c) Michael H. Arieli <excelwebzone@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Omlex;
 
 /**
  * Discover the oEmbed API URI.
- *
- * @author Michael H. Arieli <excelwebzone@gmail.com>
  */
 class Discoverer
 {
@@ -25,35 +14,37 @@ class Discoverer
     const LINK_REGEXP = '#<link([^>]*)type=[^"]*"(?P<Format>@formats@)\+oembed"(?P<Attributes>[^>]*)>#i';
 
     /**
-     * Cached endpoints
+     * Cached endpoints.
      *
      * @var array
      */
-    protected $cachedEndpoints = array();
+    protected $cachedEndpoints = [];
 
     /**
-     * Supported formats
+     * Supported formats.
      *
      * @var string
      */
-    protected $supportedFormats = array(
+    protected $supportedFormats = [
         'application/json',
-        'text/xml'
-    );
+        'text/xml',
+    ];
 
     /**
-     * Preferred format
+     * Preferred format.
      *
      * @var string
      */
     protected $preferredFormat = 'application/json';
 
     /**
-     * Get the provider's endpoint URL for the supplied resource
+     * Get the provider's endpoint URL for the supplied resource.
      *
      * @param string $url The URL to get the endpoint's URL for
+     *
+     * @return string
      */
-    public function getEndpointForUrl($url)
+    public function getEndpointForUrl(string $url): string
     {
         if (!isset($this->cachedEndpoints[$url])) {
             $this->cachedEndpoints[$url] = $this->fetchEndpointForUrl($url);
@@ -63,7 +54,7 @@ class Discoverer
     }
 
     /**
-     * Fetch the provider's endpoint URL for the supplied resource
+     * Fetch the provider's endpoint URL for the supplied resource.
      *
      * @param string $url The provider's endpoint URL for the supplied resource
      *
@@ -71,7 +62,7 @@ class Discoverer
      *
      * @throws \InvalidArgumentException If no valid link was found
      */
-    protected function fetchEndpointForUrl($url)
+    protected function fetchEndpointForUrl(string $url): string
     {
         $client = new Client($url);
 
@@ -97,7 +88,7 @@ class Discoverer
     }
 
     /**
-     * Extract the endpoint's URL from the <link>'s tag attributes
+     * Extract the endpoint's URL from the <link>'s tag attributes.
      *
      * @param string $attributes The attributes of the <link> tag
      *
@@ -105,7 +96,7 @@ class Discoverer
      *
      * @throws \InvalidArgumentException If not href was found
      */
-    protected function extractEndpointFromAttributes($attributes)
+    protected function extractEndpointFromAttributes(string $attributes): string
     {
         if (!preg_match('/href=[^"]*"([^"]+)"/i', $attributes, $matches)) {
             throw new \InvalidArgumentException('No "href" attribute was found in <link> tag.');

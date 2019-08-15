@@ -2,107 +2,102 @@
 
 namespace Omlex;
 
-use Omlex\OEmbed;
-use Omlex\Object;
-use Omlex\Exception\ObjectException;
+use Omlex\Component\AbstractComponent;
+use Omlex\Exception\ComponentException;
 
 class OEmbedTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Array of test objects to fetch and validate
+     * Array of test components to fetch and validate.
      *
      * @var array
      */
-    protected $objects = array(
-        'photo' => array(
-            'url' => 'http://www.flickr.com/photos/jtellolopez/2656764466/',
-            'api' => 'http://www.flickr.com/services/oembed/',
-            'expected' => array(
-                'version'       => '1.0',
-                'type'          => 'photo',
-                'author_url'    => 'http://www.flickr.com/photos/24887479@N06/',
-                'cache_age'     => 3600,
+    protected $components = [
+        'photo' => [
+            'url' => 'https://www.flickr.com/photos/jtellolopez/2656764466/',
+            'api' => 'https://www.flickr.com/services/oembed/',
+            'expected' => [
+                'version' => '1.0',
+                'type' => 'photo',
+                'author_url' => 'https://www.flickr.com/photos/24887479@N06/',
+                'cache_age' => 3600,
                 'provider_name' => 'Flickr',
-                'provider_url'  => 'http://www.flickr.com/',
-                'title'         => 'Torrie Wilson',
-                'author_name'   => 'jtellolopez',
-                'width'         => '842',
-                'height'        => '1024',
-                'url'           => 'http://farm4.staticflickr.com/3245/2656764466_afa90677e1_b.jpg',
-            )
-        ),
-        'video' => array(
-            'url' => 'http://www.youtube.com/watch?v=ReSxgDpAJwk',
-            'api' => 'http://www.youtube.com/oembed/',
-            'expected' => array(
-                'provider_url'     => 'http://www.youtube.com/',
-                'title'            => 'torrie wilson vs trish stratus',
-                'html'             => '<iframe width="459" height="344" src="http://www.youtube.com/embed/ReSxgDpAJwk?feature=oembed" frameborder="0" allowfullscreen></iframe>',
-                'author_name'      => 'johnnyg08',
-                'height'           => 344,
-                'thumbnail_width'  => 480,
-                'width'            => 459,
-                'version'          => '1.0',
-                'author_url'       => 'http://www.youtube.com/user/johnnyg08',
-                'provider_name'    => 'YouTube',
-                'thumbnail_url'    => 'http://i3.ytimg.com/vi/ReSxgDpAJwk/hqdefault.jpg',
-                'type'             => 'video',
+                'provider_url' => 'https://www.flickr.com/',
+                'title' => 'Torrie Wilson',
+                'author_name' => 'jtellolopez',
+                'width' => '842',
+                'height' => '1024',
+                'url' => 'https://live.staticflickr.com/3245/2656764466_afa90677e1_b.jpg',
+            ],
+        ],
+        'video' => [
+            'url' => 'https://www.youtube.com/watch?v=ReSxgDpAJwk',
+            'api' => 'https://www.youtube.com/oembed/',
+            'expected' => [
+                'provider_url' => 'https://www.youtube.com/',
+                'title' => 'torrie wilson vs trish stratus',
+                'html' => '<iframe width="459" height="344" src="https://www.youtube.com/embed/ReSxgDpAJwk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+                'author_name' => 'johnnyg08',
+                'height' => 344,
+                'thumbnail_width' => 480,
+                'width' => 459,
+                'version' => '1.0',
+                'author_url' => 'https://www.youtube.com/user/johnnyg08',
+                'provider_name' => 'YouTube',
+                'thumbnail_url' => 'https://i.ytimg.com/vi/ReSxgDpAJwk/hqdefault.jpg',
+                'type' => 'video',
                 'thumbnail_height' => 360,
-            )
-        )
-    );
+            ],
+        ],
+    ];
 
     /**
-     * An invalid object to test
+     * An invalid component to test.
      *
      * @var array
      */
-    protected $error = array(
+    protected $error = [
         'url' => 'http://www.flickr.com/photos/jtellolopez/2656764466/',
-        'api' => 'http://www.flickr.com/services/oembed/'
-    );
+        'api' => 'http://www.flickr.com/services/oembed/',
+    ];
 
     /**
-     * An object that does not exist
+     * A component that does not exist.
      *
      * @var array
      */
-    protected $notFound = array(
+    protected $notFound = [
         'url' => 'http://www.flickr.com/photos/jtellolopez/265676446621323/',
-        'api' => 'http://www.flickr.com/services/oembed/'
-    );
+        'api' => 'http://www.flickr.com/services/oembed/',
+    ];
 
     /**
-     * Test fetching all of the objects
-     *
-     * @return void
+     * Test fetching all of the components.
      */
-    public function testGetObjects()
+    public function testGetComponents()
     {
-        foreach ($this->objects as $type => $test) {
-            $object = $this->getObject($test);
+        foreach ($this->components as $type => $test) {
+            $component = $this->getComponent($test);
 
-            $expectedObject = '\\Omlex\\Object\\' . ucfirst($type);
-            $this->assertInstanceof($expectedObject, $object);
+            $expectedComponent = '\\Omlex\\Component\\'.ucfirst($type);
+            $this->assertInstanceof($expectedComponent, $component);
 
             foreach ($test['expected'] as $key => $val) {
-                $this->assertEquals($val, $object->$key, sprintf('Unexpected %s value for object type %s', $key, $type));
+                $this->assertEquals($val, $component->$key, sprintf('Unexpected %s value for component type %s', $key, $type));
             }
         }
     }
 
     /**
-     * Test the error
-     *
-     * @return void
+     * Test the error.
      */
     public function testError()
     {
-        $this->markTestSkipped('Object seems to be valid');
+        $this->markTestSkipped('Component seems to be valid');
 
         try {
-            $object = $this->getObject($this->error);
-        } catch (ObjectException $e) {
+            $component = $this->getComponent($this->error);
+        } catch (ComponentException $e) {
             return;
         }
 
@@ -110,11 +105,11 @@ class OEmbedTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      */
     public function testNotFoundError()
     {
-        $object = $this->getObject($this->notFound);
+        $component = $this->getComponent($this->notFound);
     }
 
     public function testRemoveProvider()
@@ -129,7 +124,7 @@ class OEmbedTest extends \PHPUnit_Framework_TestCase
 
     public function testAddProvider()
     {
-        $omlex = new OEmbed(null, null, array(), false);
+        $omlex = new OEmbed(null, null, [], false);
         $yt = new \Omlex\Provider\YouTube();
         $omlex->addProvider($yt);
 
@@ -167,16 +162,16 @@ class OEmbedTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get the Omlex object
+     * Get the Omlex component.
      *
-     * @param array $test The test object to fetch
+     * @param array $test The test component to fetch
      *
-     * @return object Instance of Object
+     * @return AbstractComponent Instance of Component
      */
-    protected function getObject(array $test)
+    protected function getComponent(array $test): AbstractComponent
     {
         $omlex = new OEmbed($test['url'], $test['api']);
 
-        return $omlex->getObject();
+        return $omlex->getComponent();
     }
 }

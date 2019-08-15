@@ -1,60 +1,49 @@
 <?php
 
-/*
- * This file is part of the Omlex library.
- *
- * (c) Michael H. Arieli <excelwebzone@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Omlex;
 
 /**
  * Base class for providers.
- *
- * @author Michael H. Arieli <excelwebzone@gmail.com>
  */
 class Provider
 {
     /**
-     * The API endpoint
+     * The API endpoint.
      *
      * @var string
      */
     protected $endpoint = null;
 
     /**
-     * The URL schems
+     * The URL schems.
      *
      * @var array
      */
-    protected $schemes = array();
+    protected $schemes = [];
 
     /**
-     * The website URL
+     * The website URL.
      *
      * @var string
      */
     protected $url = null;
 
     /**
-     * The provider name
+     * The provider name.
      *
      * @var string
      */
     protected $name = null;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $endpoint The API endpoint
      * @param array  $schemes  The URL schemes
      * @param string $url      The website URL
      * @param string $name     The provider name
      */
-    public function __construct($endpoint = null, array $schemes = array(), $url = null, $name = null)
+    public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         foreach ($schemes as $key => $scheme) {
             if (!is_object($scheme) || !($scheme instanceof URLScheme)) {
@@ -73,13 +62,13 @@ class Provider
     }
 
     /**
-     * Check whether the given URL match one of the provider's schemes
+     * Check whether the given URL match one of the provider's schemes.
      *
      * @param string $url The URL to check against
      *
-     * @return Boolean True if match, false if not
+     * @return bool True if match, false if not
      */
-    public function match($url)
+    public function match(string $url): bool
     {
         if (!$this->schemes) {
             return true;
@@ -95,31 +84,31 @@ class Provider
     }
 
     /**
-     * Get the provider's URL schemes
+     * Get the provider's URL schemes.
      *
      * @return array
      */
-    public function getSchemes()
+    public function getSchemes(): array
     {
         return $this->schemes;
     }
 
     /**
-     * Get the provider's API endpoint
+     * Get the provider's API endpoint.
      *
      * @return string
      */
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         return $this->endpoint;
     }
 
     /**
-     * Get the provider's URL
+     * Get the provider's URL.
      *
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -129,7 +118,7 @@ class Provider
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }

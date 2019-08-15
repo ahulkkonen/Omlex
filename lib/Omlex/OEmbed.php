@@ -1,20 +1,11 @@
 <?php
 
-/*
- * This file is part of the Omlex library.
- *
- * (c) Michael H. Arieli <excelwebzone@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Omlex;
 
-use Omlex\Provider;
+use Omlex\Component\AbstractComponent;
 
 /**
- * Base class for consuming objects
+ * Base class for consuming components.
  *
  * <code>
  * <?php
@@ -26,21 +17,19 @@ use Omlex\Provider;
  * // explicitly providing one here. If one is not provided OEmbed
  * // attempts to discover it. If none is found an exception is thrown.
  * $oEmbed = new Omlex\OEmbed($url, 'http://www.flickr.com/services/oembed/');
- * $object = $oEmbed->getObject();
+ * $component = $oEmbed->getComponent();
  *
- * // All of the objects have somewhat sane __toString() methods that allow
+ * // All of the components have somewhat sane __toString() methods that allow
  * // you to output them directly.
- * echo (string)$object;
+ * echo (string) $component;
  *
  * ?>
  * </code>
- *
- * @author Michael H. Arieli <excelwebzone@gmail.com>
  */
 class OEmbed
 {
     /**
-     * The API's URI
+     * The API's URI.
      *
      * If the API is known ahead of time this option can be used to explicitly
      * set it. If not present then the API is attempted to be discovered
@@ -51,36 +40,38 @@ class OEmbed
     protected $endpoint = null;
 
     /**
-     * URL of object to get embed information for
+     * URL of object to get embed information for.
      *
      * @var string
      */
     protected $url = null;
 
     /**
-     * Providers
+     * Providers.
      *
      * @var array
      */
-    protected $providers = array();
+    protected $providers = [];
+
     /**
      * @var bool
      */
     protected $discovery = true;
+
     /**
      * @var Discoverer
      */
     protected $discoverer;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param string $url       The URL to fetch from
-     * @param string $endpoint  The API endpoint
-     * @param array  $providers Additional providers
-     * @param bool   $useDefaultProviders whether the default providers should be used.
+     * @param string $url                 The URL to fetch from
+     * @param string $endpoint            The API endpoint
+     * @param array  $providers           Additional providers
+     * @param bool   $useDefaultProviders whether the default providers should be used
      */
-    public function __construct($url = null, $endpoint = null, array $providers = array(), $useDefaultProviders = true)
+    public function __construct(string $url = null, string $endpoint = null, array $providers = [], bool $useDefaultProviders = true)
     {
         if ($url) {
             $this->setURL($url);
@@ -106,9 +97,9 @@ class OEmbed
      *
      * @return OEmbed
      */
-    public function registerDefaultProviders()
+    public function registerDefaultProviders(): self
     {
-        $this->providers = array(
+        $this->providers = [
             new Provider\Flickr(),
             new Provider\Hulu(),
             new Provider\iFixit(),
@@ -120,7 +111,7 @@ class OEmbed
             new Provider\Viddler(),
             new Provider\Vimeo(),
             new Provider\YouTube(),
-        );
+        ];
 
         return $this;
     }
@@ -128,11 +119,11 @@ class OEmbed
     /**
      * Whether discovery should be used if no provider could be found for the given url.
      *
-     * @param boolean $discovery true if discovery should be used, false otherwise.
+     * @param bool $discovery true if discovery should be used, false otherwise
      *
      * @return OEmbed
      */
-    public function setDiscovery($discovery)
+    public function setDiscovery(bool $discovery): self
     {
         $this->discovery = $discovery;
 
@@ -142,9 +133,9 @@ class OEmbed
     /**
      * Returns whether discovery is used if no provider could be found for a given url.
      *
-     * @return boolean true if discovery is enabled, false otherwise.
+     * @return bool true if discovery is enabled, false otherwise
      */
-    public function getDiscovery()
+    public function getDiscovery(): bool
     {
         return $this->discovery;
     }
@@ -153,12 +144,13 @@ class OEmbed
      * Sets the Discoverer that should be used for discovery of oEmbed endpoints.
      * If no discoverer is set, the default Omlex Discoverer is used.
      *
-     * @param \Omlex\Discoverer $discoverer the discover that should be used for discovery of oEmbed endpoints.
+     * @param Discoverer $discoverer the discover that should be used for discovery of oEmbed endpoints
      *
      * @return OEmbed
+     *
      * @see Discoverer
      */
-    public function setDiscoverer(Discoverer $discoverer = null)
+    public function setDiscoverer(Discoverer $discoverer = null): self
     {
         $this->discoverer = $discoverer;
 
@@ -168,23 +160,21 @@ class OEmbed
     /**
      * Returns the discoverer that is used for discovery of oEmbed endpoints.
      *
-     * @return \Omlex\Discoverer
+     * @return Discoverer|null
      */
-    public function getDiscoverer()
+    public function getDiscoverer(): ?Discoverer
     {
         return $this->discoverer;
     }
 
-
-
     /**
-     * Set a URL to fetch from
+     * Set a URL to fetch from.
      *
      * @param string $url The URL to fetch from
      *
      * @throws \InvalidArgumentException If the URL is invalid
      */
-    public function setURL($url)
+    public function setURL(string $url): void
     {
         if (!$this->validateURL($url)) {
             throw new \InvalidArgumentException(sprintf('The URL "%s" is invalid.', $url));
@@ -195,11 +185,11 @@ class OEmbed
     }
 
     /**
-     * Add provider
+     * Add provider.
      *
      * @param array|Provider $provider The provider
      */
-    public function addProvider($provider)
+    public function addProvider($provider): void
     {
         if ($provider instanceof Provider) {
             $this->providers[] = $provider;
@@ -218,15 +208,15 @@ class OEmbed
     /**
      * Removes the given provider from the registered providers array.
      *
-     * @param Provider $provider the provider to remove.
+     * @param Provider $provider the provider to remove
      *
      * @return OEmbed
      */
-    public function removeProvider(Provider $provider)
+    public function removeProvider(Provider $provider): self
     {
         $index = array_search($provider, $this->providers);
 
-        if ($index !== false) {
+        if (false !== $index) {
             unset($this->providers[$index]);
         }
 
@@ -236,11 +226,11 @@ class OEmbed
     /**
      * Returns the registered providers.
      *
-     * @return array array containing the registered Provider instances.
+     * @return array array containing the registered Provider instances
      *
      * @see Provider
      */
-    public function getProviders()
+    public function getProviders(): array
     {
         return $this->providers;
     }
@@ -250,21 +240,21 @@ class OEmbed
      *
      * @return OEmbed
      */
-    public function clearProviders()
+    public function clearProviders(): self
     {
-        $this->providers = array();
+        $this->providers = [];
 
         return $this;
     }
 
     /**
-     * Validate a URL
+     * Validate a URL.
      *
      * @param string $url The URL
      *
-     * @return Boolean True if valid, false if not
+     * @return bool True if valid, false if not
      */
-    public function validateURL($url)
+    public function validateURL(string $url): bool
     {
         $info = parse_url($url);
         if (false === $info) {
@@ -275,22 +265,22 @@ class OEmbed
     }
 
     /**
-     * Get the oEmbed response
+     * Get the oEmbed response.
      *
      * @param array $params Optional parameters for
      *
-     * @return object The oEmbed response as an object
+     * @return AbstractComponent The oEmbed response as a component
      *
      * @throws \RuntimeException         On HTTP errors
      * @throws \InvalidArgumentException when result is not parsable
      */
-    public function getObject(array $parameters = array())
+    public function getComponent(array $parameters = []): AbstractComponent
     {
-        if ($this->url === null) {
+        if (null === $this->url) {
             throw new \InvalidArgumentException('Missing URL.');
         }
 
-        if ($this->endpoint === null) {
+        if (null === $this->endpoint) {
             $this->endpoint = $this->discover($this->url);
         }
 
@@ -328,7 +318,7 @@ class OEmbed
                 $data = simplexml_load_string($data);
                 if (!$data instanceof \SimpleXMLElement) {
                     $errors = libxml_get_errors();
-                    $error  = array_shift($errors);
+                    $error = array_shift($errors);
                     libxml_clear_errors();
                     libxml_use_internal_errors(false);
                     throw new \InvalidArgumentException($error->message, $error->code);
@@ -337,11 +327,11 @@ class OEmbed
                 break;
         }
 
-        return Object::factory($data);
+        return ComponentFactory::create($data);
     }
 
     /**
-     * Discover an oEmbed API endpoint
+     * Discover an oEmbed API endpoint.
      *
      * @param string $url The URL to attempt to discover Omlex for
      *
@@ -349,7 +339,7 @@ class OEmbed
      *
      * @throws \InvalidArgumentException If not $endpoint was found
      */
-    protected function discover($url)
+    protected function discover(string $url): string
     {
         $endpoint = $this->findEndpointFromProviders($url);
 
@@ -370,11 +360,11 @@ class OEmbed
      * Finds an endpoint by looping trough the providers array and matching the url against
      * the allowed schemes for each provider.
      *
-     * @param string $url the url to find an endpoint for.
+     * @param string $url the url to find an endpoint for
      *
-     * @return string|null the endpoint if a match was found, null if no suitable provider was found.
+     * @return string|null the endpoint if a match was found, null if no suitable provider was found
      */
-    protected function findEndpointFromProviders($url)
+    protected function findEndpointFromProviders(string $url): ?string
     {
         // try to find a provider matching the supplied URL if no one has been supplied
         foreach ($this->providers as $provider) {

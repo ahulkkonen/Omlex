@@ -1,7 +1,7 @@
 Omlex
 =====
 
-This is a lightweight PHP 5.3 library for handling oEmbed services.
+This is a lightweight library for handling oEmbed services.
 
 ```php
 <?php
@@ -13,7 +13,7 @@ $ombed = new Omlex\OEmbed(
     'http://www.flickr.com/photos/24887479@N06/2656764466/', // URL
     'http://www.flickr.com/services/oembed/',                // API (optional)
 );
-$object = $ombed->getObject();
+$object = $ombed->getComponent();
 
 echo $object->__toString();
 ```
@@ -21,7 +21,7 @@ echo $object->__toString();
 Here is the result for <code>print_r($object)</code>:
 
 ```
-Omlex\Object\Photo Object
+Omlex\Component\Photo AbstractComponent
 (
     [required:protected] => Array
         (
@@ -58,9 +58,9 @@ The following is an example of how to add additional providers:
 $ombed->addProvider(
     new Omlex\Provider(
         'http://lab.viddler.com/services/oembed/',
-        array(
+        [
             'http://*.viddler.com/*',
-        ),
+        ],
         'http://www.viddler.com',
         'Viddler'
     )
@@ -69,15 +69,15 @@ $ombed->addProvider(
 // or
 
 $ombed->addProvider(
-    array(
+    [
         'endpoint' => 'http://qik.com/api/oembed.json', // or xml
-        'schemes'  => array(
+        'schemes'  => [
             'http://qik.com/video/*',
             'http://qik.com/*',
-        ),
+        ],
         'url'      => 'http://qik.com',
         'name'     => 'Qik'
-    )
+    ]
 );
 ```
 

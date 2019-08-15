@@ -1,20 +1,9 @@
 <?php
 
-/*
- * This file is part of the Omlex library.
- *
- * (c) Michael H. Arieli <excelwebzone@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Omlex;
 
 /**
  * Client simulates a browser.
- *
- * @author Michael H. Arieli <excelwebzone@gmail.com>
  */
 class Client
 {
@@ -24,23 +13,23 @@ class Client
     protected $url = null;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param string $url     The URL to fetch from
+     * @param string $url The URL to fetch from
      */
-    public function __construct($url)
+    public function __construct(string $url)
     {
         $this->url = $url;
     }
 
     /**
-     * Send a GET request
+     * Send a GET request.
      *
      * @return string The contents of the response
      *
      * @throws \RuntimeException On HTTP errors
      */
-    public function send()
+    public function send(): string
     {
         $curl = curl_init();
 
@@ -49,7 +38,7 @@ class Client
 
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($curl, CURLOPT_URL, $this->url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array());
+        curl_setopt($curl, CURLOPT_HTTPHEADER, []);
         curl_setopt($curl, CURLOPT_POSTFIELDS, null);
 
         curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
@@ -66,8 +55,8 @@ class Client
         }
 
         $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        if ((200 > $code || $code >= 300) && $code !== 304) {
-            throw new \RuntimeException('Url '.$this->url.' returned invalid code '.$code);
+        if ((200 > $code || $code >= 300) && 304 !== $code) {
+            throw new \RuntimeException(sprintf('Url %s returned invalid code %s', $this->url, $code));
         }
 
         curl_close($curl);
@@ -75,45 +64,68 @@ class Client
         return self::getLastResponse($data);
     }
 
-    public function setIgnoreErrors($ignoreErrors)
+    /**
+     * @param bool $ignoreErrors
+     */
+    public function setIgnoreErrors(bool $ignoreErrors): void
     {
         $this->ignoreErrors = $ignoreErrors;
     }
 
-    public function getIgnoreErrors()
+    /**
+     * @return bool
+     */
+    public function getIgnoreErrors(): bool
     {
         return $this->ignoreErrors;
     }
 
-    public function setMaxRedirects($maxRedirects)
+    /**
+     * @param int $maxRedirects
+     */
+    public function setMaxRedirects($maxRedirects): void
     {
         $this->maxRedirects = $maxRedirects;
     }
 
-    public function getMaxRedirects()
+    /**
+     * @return int
+     */
+    public function getMaxRedirects(): int
     {
         return $this->maxRedirects;
     }
 
-    public function setTimeout($timeout)
+    /**
+     * @param int $maxRedirects
+     */
+    public function setTimeout($timeout): void
     {
         $this->timeout = $timeout;
     }
 
-    public function getTimeout()
+    /**
+     * @return int
+     */
+    public function getTimeout(): int
     {
         return $this->timeout;
     }
 
-    static protected function getLastResponse($raw)
+    /**
+     * @param string $response
+     *
+     * @return string
+     */
+    protected static function getLastResponse(string $response): string
     {
-        $parts = preg_split('/((?:\\r?\\n){2})/', $raw, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $parts = preg_split('/((?:\\r?\\n){2})/', $response, -1, PREG_SPLIT_DELIM_CAPTURE);
         for ($i = count($parts) - 3; $i >= 0; $i -= 2) {
             if (0 === stripos($parts[$i], 'http')) {
                 return implode('', array_slice($parts, $i));
             }
         }
 
-        return $raw;
+        return $response;
     }
 }
