@@ -4,10 +4,7 @@ namespace Omlex\Provider;
 
 use Omlex\Provider;
 
-/**
- * Viddler provider.
- */
-class Viddler extends Provider
+class YouTube extends Provider
 {
     /**
      * {@inheritdoc}
@@ -15,12 +12,15 @@ class Viddler extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://lab.viddler.com/services/oembed/',
+            'http://www.youtube.com/oembed',
             [
-                'http://*.viddler.com/*',
+                'http://*.youtube.com/*',
+                'https://*.youtube.com/*',
+                'http://*.youtu.be/*',
+                'https://*.youtu.be/*',
             ],
-            'http://www.viddler.com',
-            'Viddler'
+            'http://www.youtube.com',
+            'YouTube'
         );
     }
 }

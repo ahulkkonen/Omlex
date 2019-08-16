@@ -4,9 +4,6 @@ namespace Omlex\Provider;
 
 use Omlex\Provider;
 
-/**
- * @author  Evert Harmeling <evert.harmeling@freshheads.com>
- */
 class Twitter extends Provider
 {
     /**

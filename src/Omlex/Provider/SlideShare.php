@@ -4,10 +4,7 @@ namespace Omlex\Provider;
 
 use Omlex\Provider;
 
-/**
- * Revision3 provider.
- */
-class Revision3 extends Provider
+class SlideShare extends Provider
 {
     /**
      * {@inheritdoc}
@@ -15,12 +12,12 @@ class Revision3 extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://revision3.com/api/oembed/',
+            'http://www.slideshare.net/api/oembed/2',
             [
-                'http://*.revision3.com/*',
+                'http://*.slideshare.net/*/*',
             ],
-            'http://www.revision3.com',
-            'Revision3'
+            'http://www.slideshare.net',
+            'SlideShare'
         );
     }
 }

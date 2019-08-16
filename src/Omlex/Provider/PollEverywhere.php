@@ -4,9 +4,6 @@ namespace Omlex\Provider;
 
 use Omlex\Provider;
 
-/**
- * Poll Everywhere provider.
- */
 class PollEverywhere extends Provider
 {
     /**

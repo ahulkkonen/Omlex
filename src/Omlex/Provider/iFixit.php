@@ -4,10 +4,7 @@ namespace Omlex\Provider;
 
 use Omlex\Provider;
 
-/**
- * SlideShare provider.
- */
-class SlideShare extends Provider
+class iFixit extends Provider
 {
     /**
      * {@inheritdoc}
@@ -15,12 +12,12 @@ class SlideShare extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://www.slideshare.net/api/oembed/2',
+            'http://www.ifixit.com/Embed',
             [
-                'http://*.slideshare.net/*/*',
+                'http://*.ifixit.com/Guide/View/*',
             ],
-            'http://www.slideshare.net',
-            'SlideShare'
+            'http://www.ifixit.com',
+            'iFixit'
         );
     }
 }

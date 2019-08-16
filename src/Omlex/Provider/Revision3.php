@@ -4,10 +4,7 @@ namespace Omlex\Provider;
 
 use Omlex\Provider;
 
-/**
- * iFixit provider.
- */
-class iFixit extends Provider
+class Revision3 extends Provider
 {
     /**
      * {@inheritdoc}
@@ -15,12 +12,12 @@ class iFixit extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://www.ifixit.com/Embed',
+            'http://revision3.com/api/oembed/',
             [
-                'http://*.ifixit.com/Guide/View/*',
+                'http://*.revision3.com/*',
             ],
-            'http://www.ifixit.com',
-            'iFixit'
+            'http://www.revision3.com',
+            'Revision3'
         );
     }
 }

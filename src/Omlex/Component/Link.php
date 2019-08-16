@@ -2,9 +2,6 @@
 
 namespace Omlex\Component;
 
-/**
- * Link component.
- */
 class Link extends AbstractComponent
 {
     /**

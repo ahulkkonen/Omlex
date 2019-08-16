@@ -2,10 +2,7 @@
 
 namespace Omlex\Component;
 
-/**
- * Rich component.
- */
-class Rich extends AbstractComponent
+class Video extends AbstractComponent
 {
     protected $required = ['html', 'width', 'height'];
 

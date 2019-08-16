@@ -4,10 +4,7 @@ namespace Omlex\Provider;
 
 use Omlex\Provider;
 
-/**
- * Vimeo provider.
- */
-class Vimeo extends Provider
+class Hulu extends Provider
 {
     /**
      * {@inheritdoc}
@@ -15,13 +12,12 @@ class Vimeo extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://vimeo.com/api/oembed.json', //or xml
+            'http://www.hulu.com/api/oembed.json', //or xml
             [
-                'http://*.vimeo.com/*',
-                'https://*.vimeo.com/*',
+                'http://*.hulu.com/watch/*',
             ],
-            'http://www.vimeo.com',
-            'Vimeo'
+            'http://www.hulu.com',
+            'Hulu'
         );
     }
 }

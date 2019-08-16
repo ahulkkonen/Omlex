@@ -4,10 +4,7 @@ namespace Omlex\Provider;
 
 use Omlex\Provider;
 
-/**
- * Flickr provider.
- */
-class Flickr extends Provider
+class Vimeo extends Provider
 {
     /**
      * {@inheritdoc}
@@ -15,12 +12,13 @@ class Flickr extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://www.flickr.com/services/oembed/',
+            'http://vimeo.com/api/oembed.json', //or xml
             [
-                'http://*.flickr.com/*',
+                'http://*.vimeo.com/*',
+                'https://*.vimeo.com/*',
             ],
-            'http://www.flickr.com',
-            'Flickr'
+            'http://www.vimeo.com',
+            'Vimeo'
         );
     }
 }

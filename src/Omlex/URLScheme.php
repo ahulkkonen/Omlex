@@ -2,9 +2,6 @@
 
 namespace Omlex;
 
-/**
- * URL scheme class.
- */
 class URLScheme
 {
     const WILDCARD_CHARACTER = '*';

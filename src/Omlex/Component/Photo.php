@@ -2,9 +2,6 @@
 
 namespace Omlex\Component;
 
-/**
- * Photo component.
- */
 class Photo extends AbstractComponent
 {
     protected $required = ['url', 'width', 'height'];

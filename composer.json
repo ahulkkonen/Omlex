@@ -1,19 +1,30 @@
 {
-    "name": "excelwebzone/omlex",
-    "description": "Lightweight oEmbed for PHP",
-    "keywords": ["oembed"],
-    "homepage": "https://github.com/excelwebzone/Omlex",
-    "type": "library",
-    "license": "MIT",
-    "require": {
-        "php": "^7.1.3"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "<5.4.3"
-    },
-    "autoload": {
-        "psr-0": {
-            "Omlex": "lib/"
-        }
+  "name": "excelwebzone/omlex",
+  "description": "Lightweight oEmbed for PHP",
+  "keywords": ["oembed"],
+  "homepage": "https://github.com/excelwebzone/Omlex",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ExcelWebZone",
+      "homepage": "http://excelwebzone.com"
     }
+  ],
+  "require": {
+    "php": "^7.1.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "<5.4.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Omlex\\": "src/Omlex"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Omlex\\Tests\\": "tests/Omlex"
+    }
+  }
 }

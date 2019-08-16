@@ -4,9 +4,6 @@ namespace Omlex\Provider;
 
 use Omlex\Provider;
 
-/**
- * Qik provider.
- */
 class Qik extends Provider
 {
     /**

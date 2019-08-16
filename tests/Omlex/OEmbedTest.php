@@ -1,8 +1,11 @@
 <?php
 
-namespace Omlex;
+namespace Omlex\Tests;
 
 use Omlex\Component\AbstractComponent;
+use Omlex\Provider\YouTube;
+use Omlex\OEmbed;
+use Omlex\Discoverer;
 use Omlex\Exception\ComponentException;
 
 class OEmbedTest extends \PHPUnit_Framework_TestCase
@@ -125,7 +128,7 @@ class OEmbedTest extends \PHPUnit_Framework_TestCase
     public function testAddProvider()
     {
         $omlex = new OEmbed(null, null, [], false);
-        $yt = new \Omlex\Provider\YouTube();
+        $yt = new YouTube();
         $omlex->addProvider($yt);
 
         $providers = $omlex->getProviders();

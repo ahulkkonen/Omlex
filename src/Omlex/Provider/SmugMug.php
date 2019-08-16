@@ -4,10 +4,7 @@ namespace Omlex\Provider;
 
 use Omlex\Provider;
 
-/**
- * Hulu provider.
- */
-class Hulu extends Provider
+class SmugMug extends Provider
 {
     /**
      * {@inheritdoc}
@@ -15,12 +12,12 @@ class Hulu extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://www.hulu.com/api/oembed.json', //or xml
+            'http://api.smugmug.com/services/oembed/',
             [
-                'http://*.hulu.com/watch/*',
+                'http://*.smugmug.com/*',
             ],
-            'http://www.hulu.com',
-            'Hulu'
+            'http://www.smugmug.com',
+            'SmugMug'
         );
     }
 }
