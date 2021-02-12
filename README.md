@@ -10,8 +10,8 @@ require_once 'Omlex/ClassLoader.php';
 Omlex\ClassLoader::register();
 
 $ombed = new Omlex\OEmbed(
-    'http://www.flickr.com/photos/24887479@N06/2656764466/', // URL
-    'http://www.flickr.com/services/oembed/',                // API (optional)
+    'https://www.flickr.com/photos/24887479@N06/2656764466/', // URL
+    'https://www.flickr.com/services/oembed/',                // API (optional)
 );
 $object = $ombed->getComponent();
 
@@ -35,21 +35,21 @@ Omlex\Component\Photo AbstractComponent
         (
             [version] => 1.0
             [type] => photo
-            [author_url] => http://www.flickr.com/photos/24887479@N06/
+            [author_url] => https://www.flickr.com/photos/24887479@N06/
             [cache_age] => 3600
             [provider_name] => Flickr
-            [provider_url] => http://www.flickr.com/
+            [provider_url] => https://www.flickr.com/
             [title] => Torrie Wilson
             [author_name] => jtellolopez
             [width] => 411
             [height] => 500
-            [url] => http://farm4.static.flickr.com/3245/2656764466_afa90677e1.jpg
+            [url] => https://farm4.static.flickr.com/3245/2656764466_afa90677e1.jpg
         )
 
 )
 ```
 
-Omlex is preset with a list of providers (see http://oembed.com/#section7).
+Omlex is preset with a list of providers (see https://oembed.com/#section7).
 The following is an example of how to add additional providers:
 
 ```php
@@ -57,11 +57,11 @@ The following is an example of how to add additional providers:
 
 $ombed->addProvider(
     new Omlex\Provider(
-        'http://lab.viddler.com/services/oembed/',
+        'https://lab.viddler.com/services/oembed/',
         [
-            'http://*.viddler.com/*',
+            'https://*.viddler.com/*',
         ],
-        'http://www.viddler.com',
+        'https://www.viddler.com',
         'Viddler'
     )
 );
@@ -70,12 +70,12 @@ $ombed->addProvider(
 
 $ombed->addProvider(
     [
-        'endpoint' => 'http://qik.com/api/oembed.json', // or xml
+        'endpoint' => 'https://qik.com/api/oembed.json', // or xml
         'schemes'  => [
-            'http://qik.com/video/*',
-            'http://qik.com/*',
+            'https://qik.com/video/*',
+            'https://qik.com/*',
         ],
-        'url'      => 'http://qik.com',
+        'url'      => 'https://qik.com',
         'name'     => 'Qik'
     ]
 );

@@ -12,11 +12,11 @@ class SlideShare extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://www.slideshare.net/api/oembed/2',
+            'https://www.slideshare.net/api/oembed/2',
             [
-                'http://*.slideshare.net/*/*',
+                'https://*.slideshare.net/*/*',
             ],
-            'http://www.slideshare.net',
+            'https://www.slideshare.net',
             'SlideShare'
         );
     }

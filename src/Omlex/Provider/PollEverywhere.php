@@ -12,13 +12,13 @@ class PollEverywhere extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://www.polleverywhere.com/services/oembed/',
+            'https://www.polleverywhere.com/services/oembed/',
             [
-                'http://*.polleverywhere.com/polls/*',
-                'http://*.polleverywhere.com/multiple_choice_polls/*',
-                'http://*.polleverywhere.com/free_text_polls/*',
+                'https://*.polleverywhere.com/polls/*',
+                'https://*.polleverywhere.com/multiple_choice_polls/*',
+                'https://*.polleverywhere.com/free_text_polls/*',
             ],
-            'http://www.polleverywhere.com',
+            'https://www.polleverywhere.com',
             'Poll Everywhere'
         );
     }

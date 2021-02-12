@@ -12,12 +12,12 @@ class Qik extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://qik.com/api/oembed.json', //or xml
+            'https://qik.com/api/oembed.json', //or xml
             [
-                'http://*.qik.com/video/*',
-                'http://*.qik.com/*',
+                'https://*.qik.com/video/*',
+                'https://*.qik.com/*',
             ],
-            'http://www.qik.com',
+            'https://www.qik.com',
             'Qik'
         );
     }

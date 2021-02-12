@@ -12,11 +12,11 @@ class iFixit extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://www.ifixit.com/Embed',
+            'https://www.ifixit.com/Embed',
             [
-                'http://*.ifixit.com/Guide/View/*',
+                'https://*.ifixit.com/Guide/View/*',
             ],
-            'http://www.ifixit.com',
+            'https://www.ifixit.com',
             'iFixit'
         );
     }

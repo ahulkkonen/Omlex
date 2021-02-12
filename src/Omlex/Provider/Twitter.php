@@ -14,10 +14,10 @@ class Twitter extends Provider
         return parent::__construct(
             'https://api.twitter.com/1/statuses/oembed.json',
             [
-                'http://twitter.com/*/status/*',
+                'https://twitter.com/*/status/*',
                 'https://twitter.com/*/status/*',
             ],
-            'http://twitter.com',
+            'https://twitter.com',
             'Twitter'
         );
     }

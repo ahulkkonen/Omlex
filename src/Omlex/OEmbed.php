@@ -11,12 +11,12 @@ use Omlex\Component\AbstractComponent;
  * <?php
  *
  * // The URL that we'd like to find out more information about.
- * $url = 'http://www.flickr.com/photos/24887479@N06/2656764466/';
+ * $url = 'https://www.flickr.com/photos/24887479@N06/2656764466/';
  *
  * // The oEmbed API URI. Not all providers support discovery yet so we're
  * // explicitly providing one here. If one is not provided OEmbed
  * // attempts to discover it. If none is found an exception is thrown.
- * $oEmbed = new Omlex\OEmbed($url, 'http://www.flickr.com/services/oembed/');
+ * $oEmbed = new Omlex\OEmbed($url, 'https://www.flickr.com/services/oembed/');
  * $component = $oEmbed->getComponent();
  *
  * // All of the components have somewhat sane __toString() methods that allow

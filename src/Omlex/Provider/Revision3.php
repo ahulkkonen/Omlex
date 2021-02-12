@@ -12,11 +12,11 @@ class Revision3 extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://revision3.com/api/oembed/',
+            'https://revision3.com/api/oembed/',
             [
-                'http://*.revision3.com/*',
+                'https://*.revision3.com/*',
             ],
-            'http://www.revision3.com',
+            'https://www.revision3.com',
             'Revision3'
         );
     }

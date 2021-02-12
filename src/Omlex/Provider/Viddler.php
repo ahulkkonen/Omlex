@@ -12,11 +12,11 @@ class Viddler extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://lab.viddler.com/services/oembed/',
+            'https://lab.viddler.com/services/oembed/',
             [
-                'http://*.viddler.com/*',
+                'https://*.viddler.com/*',
             ],
-            'http://www.viddler.com',
+            'https://www.viddler.com',
             'Viddler'
         );
     }

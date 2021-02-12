@@ -60,8 +60,8 @@ class OEmbedTest extends \PHPUnit_Framework_TestCase
      * @var array
      */
     protected $error = [
-        'url' => 'http://www.flickr.com/photos/jtellolopez/2656764466/',
-        'api' => 'http://www.flickr.com/services/oembed/',
+        'url' => 'https://www.flickr.com/photos/jtellolopez/2656764466/',
+        'api' => 'https://www.flickr.com/services/oembed/',
     ];
 
     /**
@@ -70,8 +70,8 @@ class OEmbedTest extends \PHPUnit_Framework_TestCase
      * @var array
      */
     protected $notFound = [
-        'url' => 'http://www.flickr.com/photos/jtellolopez/265676446621323/',
-        'api' => 'http://www.flickr.com/services/oembed/',
+        'url' => 'https://www.flickr.com/photos/jtellolopez/265676446621323/',
+        'api' => 'https://www.flickr.com/services/oembed/',
     ];
 
     /**

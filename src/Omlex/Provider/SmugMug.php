@@ -12,11 +12,11 @@ class SmugMug extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://api.smugmug.com/services/oembed/',
+            'https://api.smugmug.com/services/oembed/',
             [
-                'http://*.smugmug.com/*',
+                'https://*.smugmug.com/*',
             ],
-            'http://www.smugmug.com',
+            'https://www.smugmug.com',
             'SmugMug'
         );
     }

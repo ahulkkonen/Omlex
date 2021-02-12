@@ -12,11 +12,11 @@ class Hulu extends Provider
     public function __construct(string $endpoint = null, array $schemes = [], string $url = null, string $name = null)
     {
         return parent::__construct(
-            'http://www.hulu.com/api/oembed.json', //or xml
+            'https://www.hulu.com/api/oembed.json', //or xml
             [
-                'http://*.hulu.com/watch/*',
+                'https://*.hulu.com/watch/*',
             ],
-            'http://www.hulu.com',
+            'https://www.hulu.com',
             'Hulu'
         );
     }
