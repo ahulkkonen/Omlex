@@ -5,6 +5,7 @@
   "homepage": "https://github.com/excelwebzone/Omlex",
   "type": "library",
   "license": "MIT",
+  "version": "1.0.1",
   "authors": [
     {
       "name": "ExcelWebZone",
